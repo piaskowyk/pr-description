@@ -28,7 +28,7 @@ export const run = async () => {
         const candidatePullRequests = pullRequests.filter(
             (pr) => context.payload.ref === `refs/heads/${pr.head.ref}`
         );
-console.log(candidatePullRequests)
+console.log('mleko', candidatePullRequests, pullRequests)
         prNumber = candidatePullRequests?.[0]?.number;
     }
 
