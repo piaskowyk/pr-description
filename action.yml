@@ -25,7 +25,7 @@ inputs:
 runs:
   using: node20
   main: index.js
-  pre: 'deps.js'
+  pre: deps.js
 
 branding:
   icon: align-left
