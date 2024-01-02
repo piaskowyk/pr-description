@@ -2,7 +2,7 @@ const { getInput, notice, setFailed } = require("@actions/core");
 const { context, getOctokit } = require("@actions/github");
 const { readFileSync } = require("fs");
 
-export const run = async () => {
+const run = async () => {
     const content = getInput("content", {
         trimWhitespace: false,
     });
