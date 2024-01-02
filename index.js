@@ -51,7 +51,7 @@ const run = async () => {
     // });
 
     // let body = data.body;
-    let body = candidatePullRequests[0]
+    let body = pullRequests[0]
 
     let output = content;
     if (contentIsFilePath && contentIsFilePath === "true") {
