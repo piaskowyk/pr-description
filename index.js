@@ -35,7 +35,7 @@ const run = async () => {
         console.log("mleko")
         console.log(candidatePullRequests)
         console.log(pullRequests)
-        prNumber = candidatePullRequests?.[0]?.number;
+        prNumber = pullRequests?.[0]?.number;
         mleko = pullRequests[0]
     }
 
@@ -53,7 +53,7 @@ const run = async () => {
     // });
 
     // let body = data.body;
-    let body = mleko[0].body
+    let body = mleko.body
 
     let output = content;
     if (contentIsFilePath && contentIsFilePath === "true") {
@@ -80,7 +80,7 @@ const run = async () => {
     await octokit.rest.pulls.update({
         owner,
         repo,
-        body: body,
+        body: "mleko xdd mleko ok",
         pull_number: prNumber,
     });
 };
