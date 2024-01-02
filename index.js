@@ -18,6 +18,7 @@ const run = async () => {
     console.log(context.payload)
 
     let prNumber = context.payload.pull_request?.number;
+    let candidatePullRequests;
     if (!prNumber) {
         // not a pull_request event, try and find the PR number from the commit sha
         const { data: pullRequests } =
@@ -27,7 +28,7 @@ const run = async () => {
                 commit_sha: context.sha,
             });
 
-        const candidatePullRequests = pullRequests.filter(
+        candidatePullRequests = pullRequests.filter(
             (pr) => context.payload.ref === `refs/heads/${pr.head.ref}`
         );
         console.log("mleko")
@@ -36,20 +37,21 @@ const run = async () => {
         prNumber = candidatePullRequests?.[0]?.number;
     }
 
-    if (!prNumber) {
-        setFailed(
-            `No open pull request found for ${context.eventName}, ${context.sha}`,
-        );
-        return;
-    }
+    // if (!prNumber) {
+    //     setFailed(
+    //         `No open pull request found for ${context.eventName}, ${context.sha}`,
+    //     );
+    //     return;
+    // }
 
-    const { data } = await octokit.rest.pulls.get({
-        owner,
-        repo,
-        pull_number: prNumber,
-    });
+    // const { data } = await octokit.rest.pulls.get({
+    //     owner,
+    //     repo,
+    //     pull_number: prNumber,
+    // });
 
-    let body = data.body;
+    // let body = data.body;
+    let body = candidatePullRequests[0]
 
     let output = content;
     if (contentIsFilePath && contentIsFilePath === "true") {
