@@ -1,4 +1,4 @@
-import { getInput, notice, setFailed } from "@actions/core";
+import { getInput, notice, setFailed, debug } from "@actions/core";
 import { context, getOctokit } from "@actions/github";
 import { readFileSync } from "fs";
 
@@ -14,8 +14,8 @@ export const run = async () => {
 
     const { owner, repo } = context.repo;
     const octokit = getOctokit(token);
-    notice("dzik")
-notice(context.payload)
+    debug("dzik")
+debug(context.payload)
     let prNumber = context.payload.pull_request?.number;
     if (!prNumber) {
         // not a pull_request event, try and find the PR number from the commit sha
@@ -29,9 +29,9 @@ notice(context.payload)
         const candidatePullRequests = pullRequests.filter(
             (pr) => context.payload.ref === `refs/heads/${pr.head.ref}`
         );
-        notice("mleko")
-        notice(candidatePullRequests)
-        notice(pullRequests)
+        debug("mleko")
+        debug(candidatePullRequests)
+        debug(pullRequests)
         prNumber = candidatePullRequests?.[0]?.number;
     }
 
