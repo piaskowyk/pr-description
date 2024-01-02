@@ -14,7 +14,8 @@ export const run = async () => {
 
     const { owner, repo } = context.repo;
     const octokit = getOctokit(token);
-console.log('dzik', context.payload)
+    notice("dzik")
+notice(context.payload)
     let prNumber = context.payload.pull_request?.number;
     if (!prNumber) {
         // not a pull_request event, try and find the PR number from the commit sha
@@ -28,7 +29,9 @@ console.log('dzik', context.payload)
         const candidatePullRequests = pullRequests.filter(
             (pr) => context.payload.ref === `refs/heads/${pr.head.ref}`
         );
-console.log('mleko', candidatePullRequests, pullRequests)
+        notice("mleko")
+        notice(candidatePullRequests)
+        notice(pullRequests)
         prNumber = candidatePullRequests?.[0]?.number;
     }
 
