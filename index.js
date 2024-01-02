@@ -4,7 +4,6 @@ import { readFileSync } from "fs";
 
 export const run = async () => {
     const content = getInput("content", {
-        required: true,
         trimWhitespace: false,
     });
     const contentIsFilePath = getInput("contentIsFilePath");
@@ -27,9 +26,7 @@ export const run = async () => {
             });
 
         const candidatePullRequests = pullRequests.filter(
-            (pr) =>
-                context.payload.ref === `refs/heads/${pr.head.ref}` &&
-                pr.state === "open",
+            (pr) => context.payload.ref === `refs/heads/${pr.head.ref}`
         );
 
         prNumber = candidatePullRequests?.[0]?.number;
