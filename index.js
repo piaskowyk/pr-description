@@ -1,4 +1,4 @@
-import { getInput, notice, setFailed, debug } from "@actions/core";
+import { getInput, notice, setFailed } from "@actions/core";
 import { context, getOctokit } from "@actions/github";
 import { readFileSync } from "fs";
 
