@@ -1,1 +1,1 @@
-console.info(require('child_process').execSync('yarn', { cwd: __dirname }).toString());
+console.info(require('child_process').execSync('npm i', { cwd: __dirname }).toString());
