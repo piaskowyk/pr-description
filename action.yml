@@ -1,5 +1,5 @@
 name: Update PR Description
-author: nefrob
+author: mleko
 description: Add or update content in GitHub PR description.
 
 inputs:
@@ -24,7 +24,7 @@ inputs:
 
 runs:
   using: node20
-  main: dist/index.js
+  main: index.js
 
 branding:
   icon: align-left
