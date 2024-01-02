@@ -1,11 +1,10 @@
 name: Update PR Description
-author: mleko
 description: Add or update content in GitHub PR description.
 
 inputs:
   content:
     description: Content to append or replace in the PR body.
-    required: true
+    required: false
   contentIsFilePath:
     description: Whether the content is a file path.
     required: false

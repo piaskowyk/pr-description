@@ -14,12 +14,8 @@ const run = async () => {
 
     const { owner, repo } = context.repo;
     const octokit = getOctokit(token);
-    console.log("dzik")
-    console.log(context.payload)
 
     let prNumber = context.payload.pull_request?.number;
-    let candidatePullRequests;
-    let mleko;
     if (!prNumber) {
         // not a pull_request event, try and find the PR number from the commit sha
         const { data: pullRequests } =
@@ -29,31 +25,29 @@ const run = async () => {
                 commit_sha: context.sha,
             });
 
-        candidatePullRequests = pullRequests.filter(
-            (pr) => context.payload.ref === `refs/heads/${pr.head.ref}`
+        const candidatePullRequests = pullRequests.filter(
+            (pr) =>
+                context.payload.ref === `refs/heads/${pr.head.ref}` &&
+                pr.state === "open",
         );
-        console.log("mleko")
-        console.log(candidatePullRequests)
-        console.log(pullRequests)
-        prNumber = pullRequests?.[0]?.number;
-        mleko = pullRequests[0]
+
+        prNumber = candidatePullRequests?.[0]?.number;
     }
 
-    // if (!prNumber) {
-    //     setFailed(
-    //         `No open pull request found for ${context.eventName}, ${context.sha}`,
-    //     );
-    //     return;
-    // }
+    if (!prNumber) {
+        setFailed(
+            `No open pull request found for ${context.eventName}, ${context.sha}`,
+        );
+        return;
+    }
 
-    // const { data } = await octokit.rest.pulls.get({
-    //     owner,
-    //     repo,
-    //     pull_number: prNumber,
-    // });
+    const { data } = await octokit.rest.pulls.get({
+        owner,
+        repo,
+        pull_number: prNumber,
+    });
 
-    // let body = data.body;
-    let body = mleko.body
+    let body = data.body;
 
     let output = content;
     if (contentIsFilePath && contentIsFilePath === "true") {
@@ -76,11 +70,12 @@ const run = async () => {
         );
         return;
     }
+    body = body.replace(/\n\s*\n/g, '\n');
 
     await octokit.rest.pulls.update({
         owner,
         repo,
-        body: "mleko xdd mleko ok",
+        body: body,
         pull_number: prNumber,
     });
 };
