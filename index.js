@@ -14,7 +14,7 @@ export const run = async () => {
 
     const { owner, repo } = context.repo;
     const octokit = getOctokit(token);
-
+console.log('dzik', context.payload)
     let prNumber = context.payload.pull_request?.number;
     if (!prNumber) {
         // not a pull_request event, try and find the PR number from the commit sha
