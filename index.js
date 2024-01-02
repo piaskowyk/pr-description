@@ -19,6 +19,7 @@ const run = async () => {
 
     let prNumber = context.payload.pull_request?.number;
     let candidatePullRequests;
+    let mleko;
     if (!prNumber) {
         // not a pull_request event, try and find the PR number from the commit sha
         const { data: pullRequests } =
@@ -35,6 +36,7 @@ const run = async () => {
         console.log(candidatePullRequests)
         console.log(pullRequests)
         prNumber = candidatePullRequests?.[0]?.number;
+        mleko = pullRequests[0]
     }
 
     // if (!prNumber) {
@@ -51,7 +53,7 @@ const run = async () => {
     // });
 
     // let body = data.body;
-    let body = pullRequests[0]
+    let body = mleko[0].body
 
     let output = content;
     if (contentIsFilePath && contentIsFilePath === "true") {
