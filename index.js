@@ -1,6 +1,6 @@
-import { getInput, notice, setFailed } from "@actions/core";
-import { context, getOctokit } from "@actions/github";
-import { readFileSync } from "fs";
+const { getInput, notice, setFailed } = require("@actions/core");
+const { context, getOctokit } = require("@actions/github");
+const { readFileSync } = require("fs");
 
 export const run = async () => {
     const content = getInput("content", {
